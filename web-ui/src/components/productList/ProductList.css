@@ -1,0 +1,108 @@
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. */
+/* SPDX-License-Identifier: MIT-0 */
+
+:root {
+  --product-list-flex-direction: column;
+  --product-list-overflow-x: hidden;
+  --product-width: 100%;
+  --product-bottom-gap: 0.5rem;
+  --product-right-gap: 0;
+  --product-container-height: 48rem;
+}
+
+.details .products-container > .product {
+  opacity: var(--details-opacity);
+  cursor: default;
+}
+
+.products-container {
+  box-shadow: 0px 6px 24px rgba(0, 0, 0, 0.05);
+  overflow-x: var(--product-list-overflow-x);
+  height: var(--product-container-height);
+}
+
+.product-list {
+  flex-direction: var(--product-list-flex-direction);
+}
+
+.product {
+  flex-basis: var(--product-width);
+  margin-bottom: var(--product-bottom-gap);
+  margin-right: var(--product-right-gap);
+  border-radius: var(--radius-small);
+}
+
+.product:hover {
+  background: var(--color-bg-alt-2);
+  cursor: pointer;
+}
+
+.product-img {
+  height: 7.2rem;
+  width: 7.2rem;
+  border-radius: var(--radius-small);
+}
+
+.product-name {
+  font-size: 1.5rem;
+}
+
+.product-price-wrapper {
+  display: inline-block;
+  align-self: flex-end;
+}
+
+.product-current {
+  box-shadow: 0 0 0 2px var(--color-text-base);
+}
+
+.products-price,
+.products-discounted-price {
+  font-weight: bold;
+}
+
+.product-onsale .product-price {
+  text-decoration: line-through;
+  padding-right: 5px;
+  font-weight: normal;
+  color: var(--color-text-tertiary);
+}
+
+@media (max-width: 480px) { /* Smaller Screens */
+  :root {
+    --product-list-flex-direction: row;
+    --product-list-overflow-x: scroll;
+    --product-width: 20rem;
+    --product-bottom-gap: 0;
+    --product-right-gap: 1rem;
+    --product-container-height: auto;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 767px) { /* Small Screens */
+  :root {
+    --product-list-flex-direction: row;
+    --product-list-overflow-x: scroll;
+    --product-width: 20rem;
+    --product-bottom-gap: 0;
+    --product-right-gap: 1rem;
+    --product-container-height: auto;
+  }
+}
+
+@media (min-width: 767px) and (max-width: 1024px) { /* Large Screens */
+  :root {
+    --product-list-flex-direction: row;
+    --product-list-overflow-x: scroll;
+    --product-width: 20rem;
+    --product-bottom-gap: 0;
+    --product-right-gap: 1rem;
+    --product-container-height: auto;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1280px) { /* Large Screens */
+  :root {
+    --product-container-height: 36rem;
+  }
+}

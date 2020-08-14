@@ -1,0 +1,11 @@
+{
+  "name": "products",
+  "version": "1.0.0",
+  "description": "Return list of products",
+  "main": "src/app.js",
+  "author": " ",
+  "license": " ",
+  "dependencies": {
+    "aws-sdk": "^2.709.0"
+  }
+}

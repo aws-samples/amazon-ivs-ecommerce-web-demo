@@ -1,0 +1,83 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: eCommerce backend. Create a simple endpoint to store and retrieve product details.
+
+Parameters:
+  TableName:
+    Type: String
+    Default: 'products'
+    Description: (Required) The name of the new DynamoDB to store product details. Minimum 3 characters
+    MinLength: 3
+    MaxLength: 50
+    AllowedPattern: ^[A-Za-z_]+$
+    ConstraintDescription: 'Required. Can be characters and underscore only. No numbers or special characters allowed.'
+
+Resources:
+  SimpleProductEnpoint:
+    Type: AWS::ApiGatewayV2::Api
+    Properties:
+      Name: SimpleProductEnpoint
+      ProtocolType: HTTP
+      Target: 
+        Fn::Sub:
+          arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ProductsFunction.Arn}/invocations
+  Deployment:
+    Type: AWS::ApiGatewayV2::Deployment
+    Properties:
+      ApiId: !Ref SimpleProductEnpoint
+  Stage:
+    Type: AWS::ApiGatewayV2::Stage
+    Properties:
+      StageName: Prod
+      Description: Prod Stage
+      DeploymentId: !Ref Deployment
+      ApiId: !Ref SimpleProductEnpoint
+  ProductsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+      - AttributeName: "id"
+        AttributeType: "S"
+      KeySchema:
+      - AttributeName: "id"
+        KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+      SSESpecification:
+        SSEEnabled: True
+      TableName: !Ref TableName
+  ProductsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: lambda/
+      Handler: app.handler
+      MemorySize: 256
+      Runtime: nodejs12.x
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref TableName
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName: !Ref TableName
+  ProductsPermission:
+    Type: AWS::Lambda::Permission
+    DependsOn:
+      - SimpleProductEnpoint
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref ProductsFunction
+      Principal: apigateway.amazonaws.com    
+    
+Outputs:
+  ProductsTableArn:
+    Description: "Product table ARN"
+    Value: !GetAtt ProductsTable.Arn
+
+  ProductsFunctionARN:
+    Description: "Products function ARN"
+    Value: !GetAtt ProductsFunction.Arn
+
+  SimpleProductEnpointURL:
+    Description: "Products API endpoint url"
+    Value: !Sub "https://${SimpleProductEnpoint}.execute-api.${AWS::Region}.amazonaws.com/Prod/"

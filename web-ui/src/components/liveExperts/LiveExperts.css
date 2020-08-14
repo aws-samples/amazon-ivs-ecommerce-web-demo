@@ -1,0 +1,14 @@
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. */
+/* SPDX-License-Identifier: MIT-0 */
+
+.live-expert-image {
+  top: 0;
+  object-fit: cover;
+  border-radius: var(--radius-small);
+}
+
+@media (min-width: 480px) and (max-width: 767px) { /* Small Screens */
+  :root {
+    --grid-3-columns: 1fr 1fr;
+  }
+}

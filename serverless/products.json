@@ -1,0 +1,88 @@
+{
+    "products": [
+        {
+            "PutRequest": {
+                "Item": {
+                    "id": {"S": "1000567890"},
+                    "name": {"S": "Eyeshadow Palette - Set of 3 Palettes"},
+                    "price": {"N": "125"},
+                    "discountedPrice": {"N": "99"},
+                    "rankSeq": {"N": "10"},
+                    "longDescription": {"S": "By combining potent natural ingredients, ancient rituals, and modern science, ACME creates products that perform with experiences that transform. Discovery drives innovation. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vulputate volutpat rhoncus arcu porttitor in."},
+                    "imageUrl": {"S": "https://<my-bucket-name>.s3-<my-region>.amazonaws.com/products/1000567890.jpg"},
+                    "imageLargeUrl": {"S": "https://<my-bucket-name>.s3-<my-region>.amazonaws.com/products/1000567890-lg.jpg"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "id": {"S": "1000567891"},
+                    "name": {"S": "Waterproof Eyeliner and Mascara"},
+                    "price": {"N": "27"},
+                    "discountedPrice": {"N": "27"},
+                    "rankSeq": {"N": "20"},
+                    "longDescription": {"S": "By combining potent natural ingredients, ancient rituals, and modern science, ACME creates products that perform with experiences that transform. Discovery drives innovation. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vulputate volutpat rhoncus arcu porttitor in."},
+                    "imageUrl": {"S": "https://<my-bucket-name>.s3-<my-region>.amazonaws.com/products/1000567891.jpg"},
+                    "imageLargeUrl": {"S": "https://<my-bucket-name>.s3-<my-region>.amazonaws.com/products/1000567891-lg.jpg"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "id": {"S": "1000567892"},
+                    "name": {"S": "Divine Shine - Satin Rose Lipstick set"},
+                    "price": {"N": "35"},
+                    "discountedPrice": {"N": "28"},
+                    "rankSeq": {"N": "30"},
+                    "longDescription": {"S": "By combining potent natural ingredients, ancient rituals, and modern science, ACME creates products that perform with experiences that transform. Discovery drives innovation. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vulputate volutpat rhoncus arcu porttitor in."},
+                    "imageUrl": {"S": "https://<my-bucket-name>.s3-<my-region>.amazonaws.com/products/1000567892.jpg"},
+                    "imageLargeUrl": {"S": "https://<my-bucket-name>.s3-<my-region>.amazonaws.com/products/1000567892-lg.jpg"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "id": {"S": "1000567893"},
+                    "name": {"S": "Gloss Bomb Universal Lip Luminizer"},
+                    "price": {"N": "19"},
+                    "discountedPrice": {"N": "15"},
+                    "rankSeq": {"N": "40"},
+                    "longDescription": {"S": "By combining potent natural ingredients, ancient rituals, and modern science, ACME creates products that perform with experiences that transform. Discovery drives innovation. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vulputate volutpat rhoncus arcu porttitor in."},
+                    "imageUrl": {"S": "https://<my-bucket-name>.s3-<my-region>.amazonaws.com/products/1000567893.jpg"},
+                    "imageLargeUrl": {"S": "https://<my-bucket-name>.s3-<my-region>.amazonaws.com/products/1000567893-lg.jpg"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "id": {"S": "1000567894"},
+                    "name": {"S": "7-in-1 daily wear palette essentials"},
+                    "price": {"N": "103"},
+                    "discountedPrice": {"N": "95"},
+                    "rankSeq": {"N": "50"},
+                    "longDescription": {"S": "By combining potent natural ingredients, ancient rituals, and modern science, ACME creates products that perform with experiences that transform. Discovery drives innovation. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vulputate volutpat rhoncus arcu porttitor in."},
+                    "imageUrl": {"S": "https://<my-bucket-name>.s3-<my-region>.amazonaws.com/products/1000567894.jpg"},
+                    "imageLargeUrl": {"S": "https://<my-bucket-name>.s3-<my-region>.amazonaws.com/products/1000567894-lg.jpg"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "id": {"S": "1000567895"},
+                    "name": {"S": "EYE CARE SET - sparkle gloss eyes and lashes"},
+                    "price": {"N": "95"},
+                    "discountedPrice": {"N": "45"},
+                    "rankSeq": {"N": "60"},
+                    "longDescription": {"S": "By combining potent natural ingredients, ancient rituals, and modern science, ACME creates products that perform with experiences that transform. Discovery drives innovation. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vulputate volutpat rhoncus arcu porttitor in."},
+                    "imageUrl": {"S": "https://<my-bucket-name>.s3-<my-region>.amazonaws.com/products/1000567895.jpg"},
+                    "imageLargeUrl": {"S": "https://<my-bucket-name>.s3-<my-region>.amazonaws.com/products/1000567895-lg.jpg"}
+                }
+            }
+        }
+    ]
+}
