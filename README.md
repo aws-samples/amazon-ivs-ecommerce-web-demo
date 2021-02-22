@@ -34,6 +34,8 @@ To get the demo running in your own AWS account, follow these instructions.
 * [Amazon IVS docs](https://docs.aws.amazon.com/ivs/)
 * [User Guide](https://docs.aws.amazon.com/ivs/latest/userguide/)
 * [API Reference](https://docs.aws.amazon.com/ivs/latest/APIReference/)
+* [Learn more about Amazon IVS on IVS.rocks](https://ivs.rocks/)
+* [View more demos like this](https://ivs.rocks/examples)
 
 ## License
 This project is licensed under the MIT-0 License. See the LICENSE file.
