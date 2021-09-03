@@ -23,7 +23,7 @@ const Modal = ({
     if(event.keyCode === 27) { // keyCode 27 is Esc char
       closeModal();
     }
-  }, []);
+  }, [closeModal]);
 
   useEffect(() => {
     // add listener for Esc to close modal
