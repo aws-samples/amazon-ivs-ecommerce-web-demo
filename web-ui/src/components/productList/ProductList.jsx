@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import * as config from '../../config';
 
@@ -14,19 +14,14 @@ import { mockProductList } from '../../__test__/mocks/products-mocks';
 // Styles
 import './ProductList.css';
 
-class ProductList extends Component {
-  constructor(props) {
-    super();
-    this.state = {
-      productId: '',
-      products: []
-    }
-  }
+const ProductList = (props) => {
+  const [productId, setProductId] = useState('');
+  const [productsArr, setProducts] = useState([]);
 
-  componentDidMount() {
+  useEffect(() => {
     if (config.USE_MOCK_DATA) {
       const { products } = mockProductList.data;
-      this.setState({ products });
+      setProducts(products)
     } else {
       const url = config.GET_PRODUCTS_API;
       const options = {
@@ -60,28 +55,27 @@ class ProductList extends Component {
         })
 
         // save the products in local store
-        this.setState({ products });
+        setProducts(products)
       })
       .catch(() => {
         console.log('Error');
       });
     }
+  }, [])
+
+  useEffect(() => {
+    scrollToCurrentProduct();
+  })
+
+  const handleProductClick = (productId) => {
+    setProductId(productId)
+    props.setModal(true);
   }
 
-  componentDidUpdate = () => {
-    this.scrollToCurrentProduct();
-  }
-
-  handleProductClick = (productId) => {
-    this.setState({ productId });
-    this.props.setModal(true);
-  }
-
-  renderProductList = () => {
-    const { products } = this.state;
-    const { currentProductId } = this.props;
+  const renderProductList = () => {
+    const { currentProductId } = props;
     return (
-      products.map(product => {
+      productsArr.map(product => {
         const { id, name, price, discountedPrice } = product;
         let { imageUrl } = product;
 
@@ -95,7 +89,7 @@ class ProductList extends Component {
         const onSale = (price !== discountedPrice) ? 'product-onsale' : '';
 
         return (
-          <div className={`product fl-shrink-0 pd-05 fl fl-nowrap br-all-sm ${current}`} key={id} onClick={() => this.handleProductClick(id)}>
+          <div className={`product fl-shrink-0 pd-05 fl fl-nowrap br-all-sm ${current}`} key={id} onClick={() => handleProductClick(id)}>
             <div className="product-img no-overflow br-all-sm fl-shrink-0">
               <img src={imageUrl} alt={id} />
             </div>
@@ -114,31 +108,28 @@ class ProductList extends Component {
     )
   }
 
-  scrollToCurrentProduct = () => {
+  const scrollToCurrentProduct = () => {
     const element = document.getElementsByClassName("product-current");
     if (element.length) {
       element[0].scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
     }
   }
 
-  closeModal = () => {
-    this.props.setModal(false);
+  const closeModal = () => {
+    props.setModal(false);
   }
 
-  render() {
-    const { productId, products } = this.state;
-    const { showModal } = this.props;
-    return (
-      <div className="products-container bg-alt br-all pd-1">
-        <div className="product-list fl fl-nowrap bg-alt br-all">
-          {this.renderProductList()}
-        </div>
-        {showModal && (
-          <Modal productId={productId} closeModal={this.closeModal} products={products} />
-        )}
+  const { showModal } = props;
+  return (
+    <div className="products-container bg-alt br-all pd-1">
+      <div className="product-list fl fl-nowrap bg-alt br-all">
+        {renderProductList()}
       </div>
-    );
-  }
+      {showModal && (
+        <Modal productId={productId} closeModal={closeModal} products={productsArr} />
+      )}
+    </div>
+  );
 }
 
 ProductList.propTypes = {

@@ -1,32 +1,19 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import * as config from '../../config';
 
 // Styles
 import './VideoPlayer.css';
 
-class VideoPlayer extends Component {
-  constructor() {
-    super ();
-    this.state = {
-      hover: false,
-      maxMetaData: 10,
-      metaData: [],
-    }
-  }
+const VideoPlayer = (props) => {
+  const [hover, setHover] = useState(false)
+  const maxMetaData = 10;
+  const [metaData, setMetaData] = useState([]);
 
-  componentDidMount() {
-    const mediaPlayerScript = document.createElement("script");
-    mediaPlayerScript.src = "https://player.live-video.net/1.3.1/amazon-ivs-player.min.js";
-    mediaPlayerScript.async = true;
-    mediaPlayerScript.onload = () => this.mediaPlayerScriptLoaded();
-    document.body.appendChild(mediaPlayerScript);
-  }
-
-  mediaPlayerScriptLoaded = () => {
+  const mediaPlayerScriptLoaded = () => {
     // This shows how to include the Amazon IVS Player with a script tag from our CDN
     // If self hosting, you may not be able to use the create() method since it requires
     // that file names do not change and are all hosted from the same directory.
@@ -63,17 +50,17 @@ class VideoPlayer extends Component {
         console.log('Timed metadata: ', cue.text);
         const metadataText = JSON.parse(cue.text);
         const productId = metadataText['productId'];
-        this.props.setMetadataId(productId);
+        props.setMetadataId(productId);
         const metadataTime = player.getPosition().toFixed(2);
 
-        const { metaData, maxMetaData } = this.state;
+        let metaD = metaData;
         // only keep max 5 metadata records
-        if (metaData.length > maxMetaData) {
-          metaData.length = maxMetaData;
+        if (metaD.length > maxMetaData) {
+          metaD.length = maxMetaData;
         }
         // insert new metadata
-        metaData.unshift(`productId: ${productId} (${metadataTime}s)`);
-        this.setState({ metaData });
+        metaD.unshift(`productId: ${productId} (${metadataTime}s)`);
+        setMetaData(metaD)
     });
 
     // Setup stream and play
@@ -81,17 +68,17 @@ class VideoPlayer extends Component {
     player.load(config.DEFAULT_VIDEO_STREAM);
     player.setVolume(0.5);
   }
+  
+  useEffect(() => {
+    const mediaPlayerScript = document.createElement("script");
+    mediaPlayerScript.src = "https://player.live-video.net/1.4.0/amazon-ivs-player.min.js";
+    mediaPlayerScript.async = true;
+    mediaPlayerScript.onload = () => mediaPlayerScriptLoaded();
+    document.body.appendChild(mediaPlayerScript);
+  }, [])
 
-  handleVideoHover = () => {
-    this.setState({ hover: true });
-  }
 
-  handleVideoUnHover = () => {
-    this.setState({ hover: false });
-  }
-
-  renderMetaData = () => {
-    const { metaData } = this.state;
+  const renderMetaData = () => {
     const metaDataItems = metaData.map(element => (
       <div className="video-metadata-item" key={element}>{element}</div>
     ));
@@ -102,21 +89,18 @@ class VideoPlayer extends Component {
     )
   }
 
-  render() {
-    const { hover } = this.state;
-    return (
-      <div
-        className="video-container pos-relative"
-        onMouseEnter={this.handleVideoHover}
-        onMouseLeave={this.handleVideoUnHover}
-      >
-        {hover && this.renderMetaData()}
-        <div className="aspect-169 pos-relative full-width full-height">
-          <video id="video-player" className="video-elem br-all pos-absolute full-width" playsInline muted></video>
-        </div>
+  return (
+    <div
+      className="video-container pos-relative"
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+    >
+      {hover && renderMetaData()}
+      <div className="aspect-169 pos-relative full-width full-height">
+        <video id="video-player" className="video-elem br-all pos-absolute full-width" playsInline muted></video>
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 VideoPlayer.propTypes = {
