@@ -65,7 +65,7 @@ const ProductList = (props) => {
 
   useEffect(() => {
     scrollToCurrentProduct();
-  }, [])
+  })
 
   const handleProductClick = (productId) => {
     setProductId(productId)
