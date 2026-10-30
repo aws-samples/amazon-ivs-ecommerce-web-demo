@@ -71,7 +71,7 @@ const VideoPlayer = (props) => {
   
   useEffect(() => {
     const mediaPlayerScript = document.createElement("script");
-    mediaPlayerScript.src = "https://player.live-video.net/1.57.0/amazon-ivs-player.min.js";
+    mediaPlayerScript.src = "https://player.live-video.net/1.58.0/amazon-ivs-player.min.js";
     mediaPlayerScript.async = true;
     mediaPlayerScript.onload = () => mediaPlayerScriptLoaded();
     document.body.appendChild(mediaPlayerScript);
